@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <div class="row py-4">
+        <div class="col">
+            <p class="text-center">Êtes-vous sûr de vouloir <b> "{{ title }}" </b> ?</p>
+            {% if title == "Supprimer le projet" %}
+                <form action="{% url "delete-Project" item.id %}" method="POST">
+            {% elif  title == "Supprimer le client" %}
+                <form action="{% url "delete-customer" item.id %}" method="POST">
+            {% elif  title == "Supprimer le profil" %}
+                <form action="{% url "delete-user" item.id %}" method="POST">
+            {% endif %}
+            {% csrf_token %}
+                <div class="d-flex justify-content-center">
+                
+                    <a class="text-center btn btn-md btn-link pr-2 px-4" href="{% url "home" %}">Annuler</a>
+
+                    <input type="submit" value="Delete" class="btn btn-md btn-danger px-4">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

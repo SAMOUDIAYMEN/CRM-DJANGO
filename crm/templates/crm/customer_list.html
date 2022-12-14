@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+   <div class="row py-4">
+      <div class="col-md-2">
+         <div class="card card-body">
+            <h5 class="text-capitalize">{{ title }}</h5>
+            <hr>
+            <h1 class="text-center p-3"> {{ data_count }} </h1>
+
+            <a href="{%url "create-customer" %}" class="btn btn-outline-info btn-sm btn-block text-capitalize">Créer un client</a>
+         </div>
+      </div>
+   </div>
+   
+   <div class="row py-4">
+      <div class="col">
+         <div class="card card-body">
+            <form action="get">
+               <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="inputGroup-sizing-default">Rechercher</span>
+                  </div>
+                  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+               </div>
+               <button type="submit" class="btn btn-primary">
+                  Rechercher
+               </button>
+            </form>
+         </div>
+      </div>
+   </div>
+
+
+   <div class="row py-4">
+      <div class="col-md">
+         <div class="card card-body">
+            <table class="table table-sm">
+               <tr>
+                  <th class="text-capitalize">nom</th>
+                  <th class="text-capitalize">téléphone</th>
+                  <th class="text-capitalize">email</th>
+                  <th class="text-capitalize">modifier</th>
+                  <th class="text-capitalize">supprimer</th>
+               </tr>
+
+               {% for n in data %}
+                  <tr>
+                     <td> {{ n.name }} </td>
+                     <td> {{ n.phone }} </td>
+                     <td> {{ n.email }} </td>
+                     <td class="font-weight-bold">
+                        <a href="{%url "update-customer" n.id %}" class="btn btn-sm btn-info">modifier</a> </td>
+                     <td class="font-weight-bold">
+                        <a href="{%url "delete-customer" n.id%}" class="btn btn-sm btn-danger">supprimer</a> </td>
+                  </tr>
+               {% endfor %}
+            </table>
+         </div>
+      </div>
+   </div>        
+{% endblock content %}

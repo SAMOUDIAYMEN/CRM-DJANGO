@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    {% include "partials/status.html" %}
+    <div class="row py-4">
+        <div class="col-md-5">
+            <h5 class="text-uppercase">Clients:  {{ total_customers }}</h5>
+            <hr>
+
+            <div class="card card-body">
+                <a href="{% url "create-customer" %}" class="btn btn-primary btn-sm btn-block text-uppercase">Créer des clients</a>
+
+                <table class="table table-sm">
+                    <tr>
+                        
+                        <th class="text-uppercase">Clients</th>
+                        <th class="text-uppercase">Téléphone</th>
+                        <th></th>
+                    </tr>
+
+                    {% for c in customers %}
+                        <tr>
+                            <td> {{ c.name }} </td>
+                            <td> {{ c.phone }} </td>
+                            <td><a class="text-uppercase btn btn-sm btn-link" href="{% url "update-customer" c.id %}">Détail</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+
+        <div class="col-md-7">
+            <h5 class="text-uppercase">5 derniers projets</h5>
+            <hr>
+
+            <div class="card card-body">
+                <a href="{% url "create-Project" %}" class="btn btn-primary btn-sm btn-block text-uppercase">Créer des projets</a>
+
+                <table class="table table-sm">
+                    <tr>
+                        <th class="text-capitalize">titre</th>
+                        <th class="text-capitalize">progrès</th>
+                        <th class="text-capitalize">status</th>
+                        <th class="text-capitalize">mettre à jour</th>
+                        <th class="text-capitalize">supprimer</th>
+                    </tr>
+
+                    {% for n in projects %}
+                        <tr>
+                            <td> {{ n.title }} </td>
+                            <td> {{ n.progress}} %</td>
+                            <td> {{ n.status }} </td>
+                            <td class="font-weight-bold text-success"> <a href="{% url "update-Project" n.id %}" class="btn btn-sm btn-info text-capitalize">update</a> </td>
+                            <td class="font-weight-bold"> <a href="{% url "delete-Project" n.id %}" class="btn btn-sm btn-danger text-capitalize">remove</a> </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <meta http-equiv="REFRESH" content="0;url={% url "login" %}">
+    {% endif %}
+{% endblock content %}
