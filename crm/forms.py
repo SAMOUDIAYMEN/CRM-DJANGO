@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from crm.models import Project,Customer,Profile
+from crm.models import Project,Customer,Profile,Task
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -22,6 +22,18 @@ class ProjectForm(ModelForm):
             'end_date': forms.DateTimeInput(format=('%Y-%m-%d %H:%M'),attrs={'class':'form-control' , 'type' : 'datetime-local' }),
             'progress': forms.NumberInput(attrs={'class':'form-control' , 'value':'0'}),
             'status': forms.Select({'class':'form-control'},),
+        }
+
+class TaskForm(ModelForm):
+    class Meta:
+        model = Task
+        fields = ('__all__')
+    
+        widgets = {
+            'title': forms.TextInput(attrs={'class':'form-control'}),
+            'description': forms.Textarea(attrs={'class':'form-control'}),
+            'project': forms.Select(attrs={'class':'form-control'}),
+            'created_date': forms.DateTimeInput(format=('%Y-%m-%d %H:%M'), attrs={'class':'form-control' , 'type' : 'datetime-local'}),
         }
 
 class CustomerForm(ModelForm):

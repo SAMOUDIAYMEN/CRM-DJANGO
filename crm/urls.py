@@ -1,5 +1,6 @@
 from django.urls import path
-from crm.views import project, customer, profile, createProject, updateProject, deleteProject, createCustomer, updateCustomer, deleteCustomer, createProfile, updateProfile, deleteProfile,register_request,login_request,logout_request
+from django.contrib.auth import views as auth_views
+from crm.views import project, customer, profile, createProject, updateProject, deleteProject, createCustomer, updateCustomer, deleteCustomer, createProfile, updateProfile, deleteProfile,register_request,login_request,logout_request,task, createTask, updateTask, deleteTask
 
 from . import views
 
@@ -8,6 +9,11 @@ urlpatterns = [
     path('create-Project/', createProject, name='create-Project'),
     path('update-Project/<str:pk>/', updateProject, name='update-Project'),
     path('delete-Project/<str:pk>/', deleteProject, name='delete-Project'),
+
+    path('Task/', task, name='task'),
+    path('create-Task/', createTask, name='create-Task'),
+    path('update-Task/<str:pk>/', updateTask, name='update-Task'),
+    path('delete-Task/<str:pk>/', deleteTask, name='delete-Task'),
 
     path('customer/', customer, name='customer'),
     path('create-customer/', createCustomer, name='create-customer'),
@@ -22,6 +28,7 @@ urlpatterns = [
     path('register/', register_request, name='register'),
     path('login/', login_request, name='login'),
     path('logout/', logout_request, name='logout'),
+    path('password-change/', auth_views.PasswordChangeView.as_view(template_name='crm/change_password.html'), name='password-change'),
 
     #path('task/', task, name='customer'),
     #path('create-task/', createTask, name='create-task'),

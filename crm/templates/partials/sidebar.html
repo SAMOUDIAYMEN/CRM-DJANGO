@@ -10,72 +10,65 @@
     <div class="sidebar-brand-text mx-3">Project <sup>Management</sup></div>
   </a>
 
-  <!-- Divider -->
   <hr class="sidebar-divider">
 
   <p class="text-center text-white font-weight-bold">Welcome {{user.username}}!</p>
 
-  <!-- Divider -->
   <hr class="sidebar-divider my-0">
 
-  <!-- Nav Item - Dashboard -->
-  <li class="nav-item active">
-    <a class="nav-link {% request.path = "/"?"active":"" %}" href="{% url 'home' %}">
+  <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+    <a class="nav-link" href="{% url 'home' %}">
       <i class="fas fa-fw fa-tachometer-alt"></i>
-      <span>Dashboard {{ request.path }}</span></a>
+      <span>Dashboard</span></a>
   </li>
 
-  <!-- Divider -->
   <hr class="sidebar-divider my-0">
 
-  <!-- Nav Item - Companies -->
-  <li class="nav-item ">
+  <li class="nav-item {% if request.resolver_match.url_name == 'project' %}active{% endif %}">
     <a class="nav-link" href="{% url 'project' %}">
       <i class="fas fa-fw fa-chart-area"></i>
       <span>les projets</span></a>
   </li>
 
-  <!-- Nav Item - Contact -->
-  <li class="nav-item">
+  <li class="nav-item {% if request.resolver_match.url_name == 'task' %}active{% endif %}">
+    <a class="nav-link" href="{% url 'task' %}">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>les Tâches</span></a>
+  </li>
+
+  <li class="nav-item {% if request.resolver_match.url_name == 'customer' %}active{% endif %}">
     <a class="nav-link" href="{% url 'customer' %}">
       <i class="fas fa-fw fa-table"></i>
       <span>les clients</span></a>
   </li>
 
-  <!-- Divider -->
   <hr class="sidebar-divider my-0">
 
-  <!-- Nav Item - Profile -->
-  <li class="nav-item">
+  <li class="nav-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
     <a class="nav-link" href="{% url 'profile' %}">
       <i class="fas fa-fw fa-user"></i>
       <span>les profiles</span></a>
   </li>
 
-  <!-- Nav Item - Change Password -->
-  <li class="nav-item">
-    <a class="nav-link" href="">
+  <li class="nav-item {% if request.resolver_match.url_name == 'password-change' %}active{% endif %}">
+    <a class="nav-link" href="{% url "password-change" %}">
       <i class="fas fa-fw fa-key"></i>
       <span>Change Password</span></a>
   </li>
 
-  <!-- Nav Item - Logout -->
-  <li class="nav-item">
+  <li class="nav-item {% if request.resolver_match.url_name == 'logout' %}active{% endif %}">
     <a class="nav-link" href="{% url 'logout' %}">
       <i class="fas fa-fw fa-sign-out-alt"></i>
       <span>Logout</span></a>
   </li>
 
-  <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">
 
-  <!-- Sidebar Toggler (Sidebar) -->
   <div class="text-center d-none d-md-inline">
       <button class="rounded-circle border-0" id="sidebarToggle"></button>
   </div>
 
 </ul>
-<!-- End of Sidebar -->
 {% endif %}
 
 

@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from crm.forms import ProjectForm,CustomerForm,ProfileForm,NewUserForm
-from crm.models import Customer, Project,Profile
+from crm.forms import ProjectForm,CustomerForm,ProfileForm,NewUserForm,TaskForm
+from crm.models import Customer, Project,Profile,Task
 from django.contrib import messages
 from django.contrib.auth import login, authenticate,logout
-from django.contrib.auth.forms import AuthenticationForm 
+from django.contrib.auth.forms import AuthenticationForm ,UserChangeForm
 
 def home(request):
     page_title = 'dashboard'
@@ -93,6 +93,73 @@ def deleteProject(request, pk):
     context = {
         'title': page_title,
         'item': Proj
+    }
+
+    template = 'partials/delete.html'
+    return render(request, template, context)
+
+def task(request):
+    page_title = 'tous les Tâches'
+    all_tasks = Task.objects.all()
+    all_tasks_count = Task.objects.all().count()
+
+    context = {
+        'title': page_title, 
+        'data': all_tasks, 
+        'data_count':all_tasks_count
+    }
+    template = 'crm/task_list.html'
+
+    return render(request, template, context)
+
+def createTask(request):
+    page_title = 'Créer un Tâche'
+    form = TaskForm()
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+
+    context = {
+        'title': page_title,
+        'form': form
+    }
+
+    template = 'partials/form.html'
+    return render(request, template, context)
+
+def updateTask(request, pk):
+    page_title = 'mise à jour Tâche'
+    tas = Task.objects.get(id=pk)
+    form = TaskForm(instance=tas)
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=tas)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+
+    context = {
+        'title': page_title,
+        'form': form
+    }
+
+    template = 'partials/form.html'
+    return render(request, template, context)
+
+def deleteTask(request, pk):
+    page_title = 'Supprimer la Tâche'
+    tas = Task.objects.get(id=pk)
+
+    if request.method == 'POST':
+        tas.delete()
+        return redirect('/')
+
+    context = {
+        'title': page_title,
+        'item': tas
     }
 
     template = 'partials/delete.html'
@@ -247,7 +314,7 @@ def login_request(request):
 	if request.method == "POST":
 		form = AuthenticationForm(request, data=request.POST)
 		if form.is_valid():
-			email = form.cleaned_data.get('email')
+			email = form.cleaned_data.get('username')
 			password = form.cleaned_data.get('password')
 			user = authenticate(email=email, password=password)
 			if user is not None:
@@ -264,4 +331,3 @@ def login_request(request):
 def logout_request(request):
     logout(request)
     return redirect('/')
-
