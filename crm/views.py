@@ -331,3 +331,7 @@ def login_request(request):
 def logout_request(request):
     logout(request)
     return redirect('/')
+
+
+def profilePage(request):
+    return render(request, 'crm/profile_page.html')

@@ -1,0 +1,40 @@
+ {% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+<div class="row">
+
+    <div class="col-lg-6">
+
+        <!-- Default Card Example -->
+        <div class="card mb-4 ">
+            <div class="card-header">
+                profil
+            </div>
+            <div class="card-body">
+                <div class="text-center">
+                    <img class="img-profile rounded-circle" width="200"
+                    src="{% static "img/undraw_profile.svg" %}">
+                </div>
+                <h2 class="font-weight-bold">{{ user.username }}</h2>
+                <h6 class="font-weight-bold">email : {{ user.email }}</h6>
+                <h6 class="font-weight-bold">téléphone : {{ user.mobile }}</h6>
+                <h6 class="font-weight-bold">designation : {{ user.designation }}</h6>
+                <h6 class="font-weight-bold">nb de projets : {{ user.number_of_projects }}</h6>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'update-profile' user.id %}" class="btn btn-danger btn-circle">
+                    <i class="fas fa-edit"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-6">
+
+
+    </div>
+
+</div>
+{% endblock content %}

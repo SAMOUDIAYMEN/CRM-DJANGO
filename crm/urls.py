@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from crm.views import project, customer, profile, createProject, updateProject, deleteProject, createCustomer, updateCustomer, deleteCustomer, createProfile, updateProfile, deleteProfile,register_request,login_request,logout_request,task, createTask, updateTask, deleteTask
+from crm.views import project, customer, profile, createProject, updateProject, deleteProject, createCustomer, updateCustomer, deleteCustomer, createProfile, updateProfile, deleteProfile,register_request,login_request,logout_request,task, createTask, updateTask, deleteTask, profilePage
 
 from . import views
 
@@ -24,6 +24,8 @@ urlpatterns = [
     path('create-profile/', createProfile, name='create-profile'),
     path('update-profile/<str:pk>/', updateProfile, name='update-profile'),
     path('delete-profile/<str:pk>/', deleteProfile, name='delete-profile'),
+
+    path("profile-page", profilePage, name="profile-page"),
 
     path('register/', register_request, name='register'),
     path('login/', login_request, name='login'),
